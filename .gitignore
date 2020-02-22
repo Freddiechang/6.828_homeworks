@@ -1,8 +1,7 @@
 *.pdf
-xv6-public
-qemu
-qemu-patched
-.vscode
-/lab/obj/
-jos.out
+/xv6-public
+/qemu
+/qemu-patched
+/.vscode
+/lab
 *.out
