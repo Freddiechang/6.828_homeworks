@@ -94,7 +94,7 @@ runcmd(struct cmd *cmd)
       close(p[0]);
       runcmd(pcmd->right);
     }
-    else
+    else if(fork() == 0)
     {
       close(1);
       close(p[0]);
@@ -102,8 +102,14 @@ runcmd(struct cmd *cmd)
       runcmd(pcmd->left);
       close(p[1]);
     }
+    else
+    {
+      close(p[0]);
+      close(p[1]);
+    }
     break;
-  }    
+  }  
+
   _exit(0);
 }
 
