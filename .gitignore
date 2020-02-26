@@ -1,5 +1,4 @@
 *.pdf
-/xv6-public
 /qemu
 /qemu-patched
 /.vscode
