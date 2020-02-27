@@ -266,6 +266,7 @@ create(char *path, short type, short major, short minor)
   ip->nlink = 1;
   iupdate(ip);
 
+
   if(type == T_DIR){  // Create . and .. entries.
     dp->nlink++;  // for ".."
     iupdate(dp);
@@ -441,4 +442,24 @@ sys_pipe(void)
   fd[0] = fd0;
   fd[1] = fd1;
   return 0;
+}
+
+
+int
+sys_dup2(void)
+{
+  struct file *old_ff, *new_ff;
+  int old_fd, new_fd;
+
+  if(argfd(0, &old_fd, &old_ff) < 0)
+    return -1;
+  if(argfd(1, &new_fd, &new_ff) < 0)
+    return -1;
+  
+  if(old_fd == new_fd)
+  {
+    return old_fd;
+  }
+  //TODO:
+  return new_fd;
 }
