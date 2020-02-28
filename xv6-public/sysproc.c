@@ -41,7 +41,32 @@ sys_getpid(void)
 {
   return myproc()->pid;
 }
+/*
+//homework lazy page allocation
+int
+sys_sbrk(void)
+{
+  int addr;
+  int n;
 
+  if(argint(0, &n) < 0)
+    return -1;
+  addr = myproc()->sz;
+  if(n < 0)
+  {
+    if(growproc(n) < 0)
+      return -1;
+  }
+  else
+  {
+    myproc()->sz += n;
+  }
+  
+  return addr;
+}
+*/
+
+//original sbrk
 int
 sys_sbrk(void)
 {
@@ -55,6 +80,7 @@ sys_sbrk(void)
     return -1;
   return addr;
 }
+
 
 int
 sys_sleep(void)
