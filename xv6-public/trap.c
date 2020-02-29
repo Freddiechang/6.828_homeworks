@@ -54,6 +54,28 @@ trap(struct trapframe *tf)
       acquire(&tickslock);
       ticks++;
       wakeup(&ticks);
+
+      // alarm syscall
+      struct proc * p;
+      p = myproc();
+      if(p != 0 && (tf->cs & 3) == 3)
+      {
+        if(p->alarmticks >= 0)
+        {
+          if(p->tickspassed == p->alarmticks)
+          {
+            p->tickspassed = 0;
+            tf->esp -= 4;
+            *(uint*)(tf->esp) = tf->eip;
+            tf->eip = (uint)p->alarmhandler;
+          }
+          else
+          {
+            p->tickspassed += 1;
+          }
+          
+        }
+      }
       release(&tickslock);
     }
     lapiceoi();
@@ -96,7 +118,7 @@ trap(struct trapframe *tf)
       mem = kalloc();
       if(mem == 0){
         cprintf("allocuvm out of memory\n");
-        myproc()->killed = 1;
+        exit();
         break;
       }
       memset(mem, 0, PGSIZE);

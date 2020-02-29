@@ -105,6 +105,7 @@ extern int sys_write(void);
 extern int sys_uptime(void);
 extern int sys_date(void);
 extern int sys_dup2(void);
+extern int sys_alarm(void);
 
 
 static int (*syscalls[])(void) = {
@@ -130,7 +131,8 @@ static int (*syscalls[])(void) = {
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
 [SYS_date]   sys_date,
-[SYS_dup2]   sys_dup2
+[SYS_dup2]   sys_dup2,
+[SYS_alarm]   sys_alarm
 };
 
 char * syscall_names[] = {
@@ -156,7 +158,8 @@ char * syscall_names[] = {
   "mkdir",
   "close",
   "date",
-  "dup2"
+  "dup2",
+  "alarm"
 };
 
 void
