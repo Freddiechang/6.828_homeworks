@@ -104,6 +104,7 @@ trap(struct trapframe *tf)
 
   //homework lazy page allocation, optional parts not finished
   case T_PGFLT:
+  cprintf("pgfault, remove this in trap.c after hw-uthread\n");
     if(!(myproc() == 0 || (tf->cs&3) == 0))
     {
       char *mem;
